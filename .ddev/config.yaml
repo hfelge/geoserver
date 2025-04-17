@@ -9,6 +9,7 @@ additional_fqdns: []
 database:
     type: postgres
     version: "17"
+dbimage_extra_packages: [postgresql-17-postgis-3, postgresql-17-postgis-3-scripts, postgis]
 use_dns_when_possible: true
 composer_version: "2"
 web_environment: []
@@ -182,7 +183,7 @@ default_container_timeout: "240"
 # This is not used by most people, most people use the *router* instead
 # of the localhost port.
 
-# host_db_port: "59002"
+host_db_port: "55432"
 # The host port binding for the ddev-dbserver can be explicitly specified. It is dynamic
 # unless explicitly specified.
 
@@ -280,8 +281,9 @@ default_container_timeout: "240"
 # and you can't erase existing hooks or all environment variables.
 # However, with "override_config: true" in a particular config.*.yaml file,
 # 'use_dns_when_possible: false' can override the existing values, and
-# hooks:
-#   post-start: []
+hooks:
+  post-start:
+      - exec:  ddev psql -d db -c "CREATE EXTENSION IF NOT EXISTS postgis;"
 # or
 # web_environment: []
 # or
