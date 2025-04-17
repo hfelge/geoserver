@@ -1,0 +1,19 @@
+# Datei: .ddev/docker-compose.override.yaml
+version: '3.6'
+
+services:
+  geoserver:
+    image: docker.osgeo.org/geoserver:2.28.x
+    container_name: ddev-${DDEV_PROJECT}-geoserver
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data_dir:/opt/geoserver/data_dir
+    restart: unless-stopped
+    expose:
+      - "8080"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.geoserver.rule=Host(`geoserver.ddev.site`)"
+      - "traefik.http.services.geoserver.loadbalancer.server.port=8080"
+      - "traefik.http.routers.geoserver.service=geoserver"
