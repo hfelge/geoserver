@@ -282,9 +282,9 @@ host_db_port: "55432"
 # However, with "override_config: true" in a particular config.*.yaml file,
 # 'use_dns_when_possible: false' can override the existing values, and
 
-hooks:
-  post-start:
-      - exec: .ddev/scripts/enable-postgis.sh
+#hooks:
+#  post-start:
+#      - exec: .ddev/scripts/enable-postgis.sh
 
 # or
 # web_environment: []
