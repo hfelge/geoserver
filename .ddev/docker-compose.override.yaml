@@ -10,6 +10,9 @@ services:
     volumes:
       - ./data_dir:/opt/geoserver/data_dir
     restart: unless-stopped
+    environment:
+      - INSTALL_EXTENSIONS=true
+      - STABLE_EXTENSIONS=authkey,ogcapi-features
     expose:
       - "8080"
     labels:
